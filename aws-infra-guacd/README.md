@@ -5,6 +5,7 @@ Project details:
 
 Pre-requisites:
   1) AWS Programmatic Access with Admin permissions :  AWS access key and secret access key
+
   2) Collect the aws keypair, R53_HostedZoneId, sslcert_arn present in the deployment region.
   
 IMP : REMOVE .example FROM THE FILE NAME "terraform.tfvars.example" TO BE CONSIDERED BY TERRAFORM DURING DEPLPOYMENT.
@@ -25,19 +26,29 @@ Script devided into 6 TF files to ease the maintenance
   5) instance.tf : Includes 2 ec2 instance deployment
   
       a) Windows SG - RDP open to public network
+      
       b) Ubuntu SG - Ports 22, 80, 8080 open only to above Windows SG
+      
       c) Windwos Server 2019 instance - hosted in public subnet. Acts as a bastion vm to access ubuntu instance for administration.
+      
       d) Ubuntu 22.04 instance - hosted in private subnet
+      
          i) Includes a key > user_data = file("deploy_guacd.sh") which reads the local bash script and executes it once vm is running.
+         
          ii) Bash file installs docker, docker compose, then deploy mysql, guacd and guacamole containers in vm.
          
   6) aws-alb.tf : Includes Application Load Balancer deployment and attach it to ubuntu instance
   
       a) ALB SG -  Allows http protocol from any ipv4 address or public network
+      
       b) Add a new ingress rule in Ubuntu-SG for port 8080 access from alb-sg
+      
       c) TG - Instance type TG, port 8080, attach to target -> ubuntu instance at port 8080 (alb_tg_attachment)
+      
       d) ALB - HTTP port 80  (We can use HTTPS at port 443, uncomment ssl_policy and cert arn lines in the script) 
+      
       e) ALB listener - listenes HTTPS traffic on port 80, default action -> forward traffic to Target Group (TG) with ubuntu instance port 8080.
+      
       f) Route 53 record (Uncomment to enable) - create a CNAME record pointing to ALB DNS name.
       
  
