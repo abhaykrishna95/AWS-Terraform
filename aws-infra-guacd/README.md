@@ -1,6 +1,14 @@
-# Terraform Project
+# Hosting Guacamole in AWS
 
-TF-Task1 project:
+Project details:
+  This deployment hosts guacamole server in ubuntu instance and makes it publically accesible through ALB DNS endpoint(for HTTP) or through HTTPS URL which is mapped to ALB using R53 record set.
+
+Pre-requisites:
+  1) AWS Programmatic Access with Admin permissions :  AWS access key and secret access key
+  2) Collect the aws keypair, R53_HostedZoneId, sslcert_arn present in the deployment region.
+  
+IMP : REMOVE .example FROM THE FILE NAME "terraform.tfvars.example" TO BE CONSIDERED BY TERRAFORM DURING DEPLPOYMENT.
+
 
 Script devided into 6 TF files to ease the maintenance
   1) variables.tf :  User defined (default) values can be passed here 
@@ -24,8 +32,9 @@ Script devided into 6 TF files to ease the maintenance
       e) ALB listener - listenes HTTPS traffic on port 80, default action -> forward traffic to Target Group (TG) with ubuntu instance port 8080.
       f) Route 53 record (Uncomment to enable) - create a CNAME record pointing to ALB DNS name.
       
- This deployment hosts guacamole server in ubuntu instance and makes it publically accesible through ALB DNS endpoint(for HTTP) mapped in R53 record (for HTTPS)
  
  Note: To use HTTPS configured URL - specify the sslcert_arn_for_alb, R53_HostedZoneId and guacamole_portal_url in terraform.tfvars file.
+ 
+ 
   
 
