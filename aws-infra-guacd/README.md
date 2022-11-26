@@ -33,8 +33,12 @@ Script devided into 6 TF files to ease the maintenance
       f) Route 53 record (Uncomment to enable) - create a CNAME record pointing to ALB DNS name.
       
  
- Note: To use HTTPS configured URL - specify the sslcert_arn_for_alb, R53_HostedZoneId and guacamole_portal_url in terraform.tfvars file.
+ Note: 
+
+ 1) To use HTTPS configured URL - specify the sslcert_arn_for_alb, R53_HostedZoneId and guacamole_portal_url in terraform.tfvars file.
  
+ 2) The user_data bash script calls a deploy_guacd.sh public repo (https://github.com/abhaykrishna95/bash-scripts.git) with docker installation script and docker-compose.yaml files
  
+ 3) Comment the #user_data key if you want to DIY docker and deploy container by connecting to Ubuntu instance from Windows instance.
   
 
