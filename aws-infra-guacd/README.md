@@ -8,7 +8,10 @@ Pre-requisites:
 
   2) Collect the aws keypair, R53_HostedZoneId, sslcert_arn present in the deployment region.
   
-IMP : REMOVE .example FROM THE FILE NAME "terraform.tfvars.example" TO BE CONSIDERED BY TERRAFORM DURING DEPLPOYMENT.
+IMP : 
+  --> REMOVE .example FROM THE FILE NAME "terraform.tfvars.example" TO BE CONSIDERED BY TERRAFORM DURING DEPLPOYMENT.
+      
+  --> If we don't have .tfvars file default values from variables.tf will be considered, and if a value is not mentioned for a variable terrafrom will ask for the user to input the value when we run terraform apply.
 
 
 Script devided into 6 TF files to ease the maintenance

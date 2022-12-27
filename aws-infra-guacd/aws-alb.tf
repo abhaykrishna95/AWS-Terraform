@@ -93,7 +93,7 @@ resource "aws_alb_listener" "alb_listener_HTTP" {
 }
 
 /*
-#Create Route53 CNAME record using ALB dns name for guacamole portal url
+#Create Route53 CNAME record pointing to ALB DNS name for guacamole portal url
 resource "aws_route53_record" "alb_R53_recordset" {
   zone_id = var.R53_HostedZoneId
   name    = var.guacamole_portal_url

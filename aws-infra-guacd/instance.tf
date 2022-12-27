@@ -78,7 +78,7 @@ resource "aws_security_group" "ubuntu_sg" {
 
   # SSH access from Windows Ec2
   ingress {
-    description = "Allow SSH from ${local.name_prefix}-windwos-server"
+    description     = "Allow SSH from ${local.name_prefix}-windwos-server"
     from_port       = 22
     to_port         = 22
     protocol        = "tcp"
@@ -87,7 +87,7 @@ resource "aws_security_group" "ubuntu_sg" {
 
   # HTTP access from Windows Ec2
   ingress {
-    description = "Allow HTTP"
+    description     = "Allow HTTP"
     from_port       = 80
     to_port         = 80
     protocol        = "tcp"
@@ -96,7 +96,7 @@ resource "aws_security_group" "ubuntu_sg" {
 
   # Port 8080 access from Windows Ec2
   ingress {
-    description = "Allow Guacamole access at 8080"
+    description     = "Allow Guacamole access at 8080"
     from_port       = 8080
     to_port         = 8080
     protocol        = "tcp"
