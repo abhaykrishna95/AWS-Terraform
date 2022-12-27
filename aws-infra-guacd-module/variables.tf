@@ -33,13 +33,13 @@ variable "aws_region" {
 variable "vpc_cidr_block" {
   type        = string
   description = "Base CIDR Block for VPC > EX: 10.0.0.0/16"
-  #default     = "10.0.0.0/16"
+  default     = "10.0.0.0/16"
 }
 
 variable "vpc_subnets_cidr_blocks" {
   type        = list(string)
   description = "CIDR Blocks for Subnets in VPC > EX: 10.0.0.0/24"
-  #default     = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
+  default     = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
 }
 
 #Instance Related Variables
@@ -47,43 +47,43 @@ variable "vpc_subnets_cidr_blocks" {
 variable "GuacInstanceType" {
   type        = string
   description = "Provide the instance type for ubuntu ec2 instance"
-  #default     = "t2.micro"
+  default     = "t2.micro"
 }
 
 variable "WinEc2InstanceType" {
   type        = string
   description = "Provide the instance type for windows ec2 instance"
-  #default     = "t2.micro"
+  default     = "t2.micro"
 }
 
 variable "Windows_EBS_ROOT_VOLUME_SIZE" {
   type        = string
   description = "The volume size for the windows root volume in GiB"
-  #default     = "30"
+  default     = "30"
 }
 
 variable "Windows_EBS_ROOT_VOLUME_TYPE" {
   type        = string
   description = "The type of data storage: standard, gp2, io1"
-  #default     = "gp2"
+  default     = "gp2"
 }
 
 variable "Ubuntu_EBS_ROOT_VOLUME_SIZE" {
   type        = string
   description = "The volume size for the ubuntu root volume in GiB"
-  #default     = "8"
+  default     = "8"
 }
 
 variable "Ubuntu_EBS_ROOT_VOLUME_TYPE" {
   type        = string
   description = "The type of data storage: standard, gp2, io1"
-  #default     = "gp2"
+  default     = "gp2"
 }
 
 variable "EC2_ROOT_VOLUME_DELETE_ON_TERMINATION" {
   type        = bool
   description = "Delete the root volume on instance termination."
-  #default     = true
+  default     = true
 }
 
 variable "aws_keypair_name" {
