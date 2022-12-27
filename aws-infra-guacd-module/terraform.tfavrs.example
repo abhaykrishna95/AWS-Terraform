@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 environment = Dev
 
 project = rdp
@@ -19,3 +20,26 @@ sslcert_arn_for_alb = "arn:aws:acm:us-east-1:6svsfvsv532259:certificate/09b84635
 R53_HostedZoneId = "AKKPTPRSDFGES3V"
 
 guacamole_portal_url = "guacamole.domain.com"
+=======
+environment = Dev
+
+project = rdp
+
+aws_region = "us-east-2"
+
+vpc_cidr_block = "10.10.0.0/18"
+
+vpc_subnets_cidr_blocks = ["10.10.0.0/24", "10.10.1.0/24", "10.10.2.0/24", "10.10.3.0/24"]
+
+aws_access_key = "AKIA2LS7OFskdlhflsdhl"
+
+aws_secret_key = "BJeKjPjZBXMQhp7m/bTtapAdmmsdvsvsaPd/M"
+
+aws_ec2_keypair_name = "useast2-keypair-name"
+
+sslcert_arn_for_alb = "arn:aws:acm:us-east-1:6svsfvsv532259:certificate/09b84635483-15df-4aa5-9111-63673466479gfd5"
+
+R53_HostedZoneId = "AKKPTPRSDFGES3V"
+
+guacamole_portal_url = "guacamole.domain.com"
+>>>>>>> 388a1ebf3638e5266f196d66735cd5bb1b831dc0
