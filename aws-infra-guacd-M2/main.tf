@@ -11,8 +11,11 @@ provider "aws" {
 module "networking" {
   source                  = "./modules/networking"
   name_prefix             = local.name_prefix
-  vpc_cidr_block          = var.vpc_cidr_block
-  vpc_subnets_cidr_blocks = var.vpc_subnets_cidr_blocks
+  # cidr_block   = "10.10.0.0/16" in this 
+  vpc_cidr_nw_ip  = "10.10"
+  public_sn_count = 2
+  private_sn_count = 2
+  subnets_cidr_blocks = var.vpc_subnets_cidr_blocks
 }
 
 module "compute" {
