@@ -41,18 +41,15 @@ data "aws_key_pair" "keypair" {
 # RESOURCES
 ##################################################################################
 
-# NETWORKING #
-
-
-
 # INSTANCES #
 
-# Create a windows(bastion) and linux(guacamole) instance
+# Create windows(bastion) instance
+
 resource "aws_instance" "windows_server" {
   ami                    = data.aws_ami.windows_2019.id
   instance_type          = var.WinEc2InstanceType
   vpc_security_group_ids = [aws_security_group.winec2_sg.id]
-  subnet_id              = var.pub_subnets[1] #public_subnet2_id
+  subnet_id              = var.pub_subnet_id[1] # Index [1] = public_subnet2_id
   key_name               = data.aws_key_pair.keypair.key_name
 
   # root disk
@@ -69,13 +66,15 @@ resource "aws_instance" "windows_server" {
   }
 }
 
-resource "aws_instance" "guacd_server" {
+# Create linux(guacamole) instance
+
+resource "aws_instance" "ubuntu_server" {
   ami                    = data.aws_ami.ubuntu_2204.id
-  instance_type          = var.GuacInstanceType
+  instance_type          = var.UbuntuInstanceType
   vpc_security_group_ids = [aws_security_group.ubuntu_sg.id]
-  subnet_id              = var.pvt_subnets[0] #private_subnet1_id
+  subnet_id              = var.pvt_subnet_id[0] # Index [0] = private_subnet1_id
   key_name               = data.aws_key_pair.keypair.key_name
-  user_data              = file("deploy_guacd.sh")
+  user_data              = var.user_data
 
   #Note: For above "user_data" key we have used file() function which reads the contents of a given path and returns them as a string.
   # Format :  file("${path.module}/hello.txt")

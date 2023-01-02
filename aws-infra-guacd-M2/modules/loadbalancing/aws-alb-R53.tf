@@ -63,12 +63,16 @@ resource "aws_alb_target_group" "alb_tg" {
     port                = "traffic-port"
     matcher             = "200"
   }
+  lifecycle {
+    ignore_changes        = [name]
+    create_before_destroy = true
+  }
 }
 
 #Attach the target instance to which the ALB should route the traffic
 resource "aws_alb_target_group_attachment" "alb_tg_attachment" {
   target_group_arn = aws_alb_target_group.alb_tg.arn
-  target_id        = var.guacd_server_id
+  target_id        = var.ubuntu_server_id
   port             = 8080
 }
 

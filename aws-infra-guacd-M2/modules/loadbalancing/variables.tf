@@ -1,7 +1,7 @@
 variable "vpc_id" {}
 variable "winec2_sg_id" {}
 variable "ubuntu_sg_id" {}
-variable "guacd_server_id" {}
+variable "ubuntu_server_id" {}
 variable "pub_subnets" {}
 variable "name_prefix" {}
 

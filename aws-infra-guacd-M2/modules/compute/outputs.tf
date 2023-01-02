@@ -1,11 +1,11 @@
-output "windows_server_public_ip" {
+output "windows_server_pub_ip" {
   description = "Public IP of the Windows Instance"
   value       = aws_instance.windows_server.public_ip
 }
 
-output "guacd_server_private_ip" {
+output "ubuntu_server_pvt_ip" {
   description = "Private IP of the Ubuntu Instance"
-  value       = aws_instance.guacd_server.private_ip
+  value       = aws_instance.ubuntu_server.private_ip
 }
 
 output "winec2_sg_id" {
@@ -18,7 +18,7 @@ output "ubuntu_sg_id" {
   value       = aws_security_group.ubuntu_sg.id
 }
 
-output "guacd_server_id" {
-  description = "Guacamole (ubuntu) server instance ID"
-  value       = aws_instance.guacd_server.id
+output "ubuntu_server_id" {
+  description = "ubuntu server instance ID"
+  value       = aws_instance.ubuntu_server.id
 }

@@ -1,4 +1,12 @@
-
-variable "vpc_cidr_block" {}
-variable "vpc_subnets_cidr_blocks" {}
-variable "name_prefix" {}
+variable "vpc_cidr_nw_ip" {
+  type = string
+}
+variable "name_prefix" {
+  type = string
+}
+variable "public_sn_count" {
+  type = number
+}
+variable "private_sn_count" {
+  type = number
+}

@@ -30,21 +30,15 @@ variable "aws_region" {
 
 #VPC Related Variables
 
-variable "vpc_cidr_block" {
+variable "vpc_cidr_nw_ip" {
   type        = string
-  description = "Base CIDR Block for VPC > EX: 10.0.0.0/16"
-  default     = "10.0.0.0/16"
+  description = "If the desired vpc-cidr-block = 10.10.0.0/16 then the first 2 octet is 10.10"
 }
 
-variable "vpc_subnets_cidr_blocks" {
-  type        = list(string)
-  description = "CIDR Blocks for Subnets in VPC > EX: 10.0.0.0/24"
-  default     = ["10.0.0.0/24", "10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
-}
 
 #Instance Related Variables
 
-variable "GuacInstanceType" {
+variable "UbuntuInstanceType" {
   type        = string
   description = "Provide the instance type for ubuntu ec2 instance"
   default     = "t2.micro"

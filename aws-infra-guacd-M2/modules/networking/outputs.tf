@@ -8,24 +8,14 @@ output "igw_id" {
   value       = aws_internet_gateway.igw.id
 }
 
-output "public_subnet1_id" {
-  description = "Output the ID for the public subnet 1"
-  value       = aws_subnet.public_subnet1.id
+output "public_subnets_id" {
+  description = "Output the ID for the public subnets"
+  value       = aws_subnet.public_subnets.*.id
 }
 
-output "public_subnet2_id" {
-  description = "Output the ID for the public subnet 2"
-  value       = aws_subnet.public_subnet2.id
-}
-
-output "private_subnet1_id" {
+output "private_subnets_id" {
   description = "Output the ID for the private subnet 1"
-  value       = aws_subnet.private_subnet1.id
-}
-
-output "private_subnet2_id" {
-  description = "Output the ID for the private subnet 2"
-  value       = aws_subnet.private_subnet2.id
+  value       = aws_subnet.private_subnets.*.id
 }
 
 output "nat_gw_id" {

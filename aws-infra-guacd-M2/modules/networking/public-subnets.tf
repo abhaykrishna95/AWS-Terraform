@@ -1,28 +1,15 @@
 ### PUBLIC SUBNETS AND ASSOCIATED ROUTE TABLES
 
 #Create 2 Public Subnets.
-resource "aws_subnet" "public_subnet1" {
-  cidr_block              = var.vpc_subnets_cidr_blocks[0]
+resource "aws_subnet" "public_subnets" {
+  count                   = var.public_sn_count
+  cidr_block              = "${var.vpc_cidr_nw_ip}.${20 + count.index}.0/24"
   vpc_id                  = aws_vpc.vpc.id
   map_public_ip_on_launch = true
-  availability_zone       = data.aws_availability_zones.available.names[0]
+  availability_zone       = data.aws_availability_zones.available.names[count.index]
 
   tags = {
-    Name = "${var.name_prefix}-pub-sub1"
-  }
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_subnet" "public_subnet2" {
-  cidr_block              = var.vpc_subnets_cidr_blocks[1]
-  vpc_id                  = aws_vpc.vpc.id
-  map_public_ip_on_launch = true
-  availability_zone       = data.aws_availability_zones.available.names[1]
-
-  tags = {
-    Name = "${var.name_prefix}-pub-sub2"
+    Name = "${var.name_prefix}-pub-sub${count.index + 1}"
   }
   lifecycle {
     create_before_destroy = true
@@ -33,12 +20,6 @@ resource "aws_subnet" "public_subnet2" {
 
 resource "aws_route_table" "public_rtb" {
   vpc_id = aws_vpc.vpc.id
-
-  route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.igw.id
-  }
-
   tags = {
     Name = "${var.name_prefix}-public-rtb"
   }
@@ -46,17 +27,19 @@ resource "aws_route_table" "public_rtb" {
     create_before_destroy = true
   }
 }
+resource "aws_route" "default_public_route" {
+  route_table_id         = aws_route_table.public_rtb.id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw.id
+}
+
 
 #Route table Association with Public Subnets
 
-resource "aws_route_table_association" "rta-public-subnet1" {
-  subnet_id      = aws_subnet.public_subnet1.id
+resource "aws_route_table_association" "public-rta-assoc" {
+  count          = var.public_sn_count
   route_table_id = aws_route_table.public_rtb.id
-}
-
-resource "aws_route_table_association" "rta-public-subnet2" {
-  subnet_id      = aws_subnet.public_subnet2.id
-  route_table_id = aws_route_table.public_rtb.id
+  subnet_id      = aws_subnet.public_subnets.*.id[count.index]
 }
 
 
@@ -73,7 +56,7 @@ resource "aws_eip" "natEIP" {
 
 resource "aws_nat_gateway" "NATgw" {
   allocation_id = aws_eip.natEIP.id
-  subnet_id     = aws_subnet.public_subnet1.id
+  subnet_id     = aws_subnet.public_subnets[0].id # Index [0] = public_subnet_1
 
   tags = {
     Name = "${var.name_prefix}-nat-gw"
