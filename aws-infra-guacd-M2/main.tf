@@ -11,19 +11,18 @@ provider "aws" {
 module "networking" {
   source           = "./modules/networking"
   name_prefix      = local.name_prefix
-  vpc_cidr_nw_ip   = "10.10" #Example: If vpc_cidr = "10.10.0.0/16" in this the first 2 octate or series "10.10" 
+  vpc_cidr_nw_ip   = "10.10" #Example: If vpc_cidr = "10.10.0.0/16" in this the first 2 octate of CIDR IP "10.10" 
   public_sn_count  = 2
   private_sn_count = 2
 }
 
 module "compute" {
-  source                                = "./modules/compute"
-  vpc_id                                = module.networking.vpc_id
-  aws_keypair_name                      = var.aws_keypair_name
-  EC2_ROOT_VOLUME_DELETE_ON_TERMINATION = "true"
-  name_prefix                           = local.name_prefix
-  pub_subnet_id                         = module.networking.public_subnets_id
-  pvt_subnet_id                         = module.networking.private_subnets_id
+  source           = "./modules/compute"
+  vpc_id           = module.networking.vpc_id
+  aws_keypair_name = var.aws_keypair_name
+  name_prefix      = local.name_prefix
+  pub_subnet_id    = module.networking.public_subnets_id
+  pvt_subnet_id    = module.networking.private_subnets_id
 
   WinEc2InstanceType = var.WinEc2InstanceType
   Win_EBS_SIZE       = var.Windows_EBS_ROOT_VOLUME_SIZE

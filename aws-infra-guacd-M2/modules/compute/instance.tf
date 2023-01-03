@@ -66,7 +66,7 @@ resource "aws_instance" "windows_server" {
   }
 }
 
-# Create linux(guacamole) instance
+# Create Ubuntu(guacamole) instance
 
 resource "aws_instance" "ubuntu_server" {
   ami                    = data.aws_ami.ubuntu_2204.id
